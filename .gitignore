@@ -1,3 +1,5 @@
 *~
 *.bak
 *.pyc
+.project
+.pydevproject	
