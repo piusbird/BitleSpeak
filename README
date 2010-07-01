@@ -1,0 +1,63 @@
+Welcome to BitleSpeak 
+---------------------
+
+First beta July 1, 2010
+
+  BitleSpeak is a minimalist text to speech toolbar for UNIX like operating 
+systems. BitleSpeak has all the basic features of a tts front end, with more
+advanced features like mp3 encoding, and follow along highlighting coming
+in the near future. In addition to being actively developed, Bitle has one other
+advantage over other speech toolbars, that is the ability to support multiple 
+speech engines, and audio subsystems. No more dreading machines with 
+pulseaudio; just set it and forget it. Note this is not a full screen reader
+it only reads text from within documents, and web-pages. If you need a screen
+reader get Orca.
+
+Dependencies
+------------
+
+To run BitleSpeak you need 
+python v 2.6 (should work with v 2.5 also)
+pygtk v 2.17 or higher (may work with 2.16 test this let me know)
+
+A Supported Speech back-end configured 
+
+Supported Speech Backends
+------------------------
+
+* Speech Dispatcher/OpenTTS: plugin (bitle.SSIPClient)
+* festival: WARNING THIS IS REALLY UNSTABLE: (plugin bitle.FestivalClient)
+
+
+How to use
+----------
+
+Just run the setup.py install copy the stock config file to ~/.bitle.cf
+read said file and edit to your heart's content. With development builds 
+just edit the stock config file, and ./bitlespeak.py. 
+Also if you have dev build report bugs, or better yet fix bugs yourself.
+
+
+THIS IS A DEVELOPMENT BUILD
+---------------------------
+
+In fact it's the first ever development build, you are lucky. Not only do you
+get to see seemingly random debug messages spew into the terminal, but 
+random features won't work as they were intended to. If you notice 
+and are bothered by these things you should e-mail the author aka me
+at the e-mail address in Contact information below. Here are some bugs 
+I'm currently working on
+
+* The preferences button doesn't work 
+* The loader spits up FestivalClient 
+
+Contact information
+-------------------
+
+Matt Arnold <matt+software@thegnuguru.org>
+
+I also have a yahoo group for discussion of this package, and upcoming 
+packages.
+
+TO-DO pick a yahoo groups address
+
