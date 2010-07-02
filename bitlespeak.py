@@ -100,7 +100,7 @@ class BitleSpeak(object):
         
         about = gtk.AboutDialog()
         about.set_program_name(APP_NAME)
-        about.set_authors([APP_AUTHOR])
+        about.set_authors(APP_AUTHORS)
         about.set_version(APP_VER)
         about.set_copyright("(c) 2010 Matt Arnold")
         about.set_comments(APP_DESC)
@@ -108,7 +108,13 @@ class BitleSpeak(object):
         about.destroy()
     
     def on_prefButton_clicked(self, widget, data=None):
-        pass
+        
+            md = gtk.MessageDialog(self.win, 
+            gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, 
+            gtk.BUTTONS_CLOSE, PREF_MSG)
+            md.run()
+            md.destroy()
+
     
     def on_mainWindow_destroy(self, widget, data=None):
         

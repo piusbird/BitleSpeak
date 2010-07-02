@@ -28,6 +28,9 @@ SITE_CONFIG_DIR = '/etc'
 
 APP_NAME = 'BitleSpeak'
 APP_VER = '0.1.1b1'
-APP_AUTHOR = "Matt Arnold"
+APP_AUTHORS = ["Matt Arnold"]
 APP_COPY ='GPL'
 APP_DESC = 'A little text to speech toolbar'
+
+## UI stuff
+PREF_MSG = "Plese edit bitle.cf for application settings"
