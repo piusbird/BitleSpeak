@@ -33,15 +33,23 @@ from bitle.config import *
 
 spkr = None
 
-try:
+def main(*argv):
+    
+    try:
+        spkr, cfg = loader.app_init()
+        print str(spkr)
+    except:
+        print("Speech loader error")
+        sys.exit(2)
+    
     spkr = loader.app_init()
-except:
-    print("Speech loader error")
-    sys.exit(2)
+    xs = cfg.getboolean("gui", "use_xsel")
+    app = BitleSpeak(spkr, xsel = xs)
+    
 
 class BitleSpeak(object):
     
-    def __init__(self):
+    def __init__(self, spk, xsel = False):
         
         ## see PyGtk Docs and data/ in source tree
         ui_file_path = os.path.abspath(BASE_PATH 
@@ -54,30 +62,36 @@ class BitleSpeak(object):
         if DEBUG:
             print "Unbound Events " + str(dbg)
         self.running = False  ## we don't want a seperate resume widget
-        ## so this is used by play/stop widgets to determine behavior 
+        ## so this is used by play/stop widgets to determine behavior
+        tspk, tcfg = spk ## tuple packing is apperently local scope only 
+        self.xsel = xsel 
+        self.spkr = tspk
     
     def on_playButton_clicked(self, widget, data=None):
         """
         Speaks the clipboard contents when play is pressed
         """
-        brd = gtk.clipboard_get()
-        tts = brd.wait_for_text()
-        spkr.speak(tts)
+        if self.xsel:
+            tts = loader.xsel_read()
+        else:
+            brd = gtk.clipboard_get()
+            tts = brd.wait_for_text()
+        self.spkr.speak(tts)
         self.running = True
         return
     
     def on_pauseButton_clicked(self, widget, data=None):
         
-        if not self.running:
-            spkr.pause()
+        if self.running:
+            self.spkr.pause()
         else:
-            spkr.resume()
+            self.spkr.resume()
         return
     
     def on_stopButton_clicked(self, widget, data=None):
         
         if self.running:
-            spkr.stop()
+            self.spkr.stop()
             self.running = False
         else:
             return
@@ -104,7 +118,7 @@ class BitleSpeak(object):
 
 if __name__ == '__main__':
     
-    app = BitleSpeak()
+    main(sys.argv)
     if DEBUG:
         print "GTK started"
     gtk.main()        

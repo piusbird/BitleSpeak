@@ -16,7 +16,7 @@
 ## along with BitleSpeak.  If not, see <http://www.gnu.org/licenses/>.
 
 import ConfigParser 
-import os.path
+import os, os.path
 from sys import exit
 from bitle.config import *
 
@@ -36,7 +36,7 @@ def app_init(cfg_path = None):
     s_cfg = os.path.abspath(SITE_CONFIG_DIR + '/bitle.cf')
     u_cfg = os.path.expanduser('~/.bitle.cf')
     if cfg_path is not None and os.path.exists(cfg_path):
-        cfg.read(cfg.path)
+        cfg.read(cfg_path)
     # load developer config first
     elif os.path.exists(d_cfg):
         cfg.read(d_cfg)
@@ -62,7 +62,14 @@ def app_init(cfg_path = None):
     exec(strexec)
     if load_plugin:
         spkr = load_plugin(cfg)
-        return spkr
+        return (spkr, cfg) 
     else:
         raise LoadError("invalid plugin")  
     return 
+
+def xsel_read():
+    
+    fp = os.popen('xsel')
+    return fp.read() + '\n'
+    
+    

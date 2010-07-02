@@ -14,6 +14,10 @@ speech_plugin = bitle.SSIPClient ; Python file that will be used as your
 ; speech backend plugin as SSIPClient.py is the only thing stable right now
 ; you'd best leave it alone
 
+[gui]
+
+use_xsel = True ; use a pipe to 'xsel' to get clipboard instead of 
+; gtk.Clipboard useful for 
 ; Start of plugin settings
 
 [SSIPClient]
