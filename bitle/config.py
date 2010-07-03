@@ -27,7 +27,7 @@ SITE_CONFIG_DIR = '/etc'
 ## GTK author metadata
 
 APP_NAME = 'BitleSpeak'
-APP_VER = '0.1.1b1'
+APP_VER = '0.1.1b2'
 APP_AUTHORS = ["Matt Arnold"]
 APP_COPY ='GPL'
 APP_DESC = 'A little text to speech toolbar'
