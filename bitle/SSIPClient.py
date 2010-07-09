@@ -62,13 +62,6 @@ def load_plugin(cfg):
 	return spkr 
 
 
-class SSIPError(Exception):
-	
-	def __init__(self, value):
-		self.parameter = value
-	def __str__(self):
-		return repr(self.parameter)
-                                    
 
 class SSIPClient(object):
 

@@ -17,59 +17,98 @@
 from subprocess import *
 import signal
 from bitle.config import *
-
+from bitle.util import *
+def load_plugin(cfg):
+    
+    if not DEBUG:
+        raise BitleError("This is an unstable plugin, use a dev build")
+    
+    pa = cfg.getboolean("Festival", "use_pulse")
+    dbg = DEBUG
+    spkr = FestivalClient()
+    spkr.set_parm("use_pulse", pa)
+    spkr.set_parm("DEBUG", dbg)
+    return spkr
 class FestivalClient(object):
      
-         def __init__(self, args):
-                  
-                          self.drvparm = {"DEBUG": DEBUG, "USE_PULSE": 1} ## lets make pulseaudio sane until i
-                                  ## get configparser in place 6-28
-                                          self.festival_proc = None
-                                                  if args == None:
-                                                              self.festival_args = " "
-                                                                      else:
-                                                                                  self.festival_args = args 
-                                                                                          self.paused = False
-                                                                                              
-                                                                                                  # Ok this will be weird but due to how this engine works we need some non-public  
-                                                                                                      # methods for pipe control here before we can actually implement the interface
-                                                                                                          
-                                                                                                              def _tts_isopen(self):
-                                                                                                                      
-                                                                                                                              return self.festival_proc != None and self.festival_proc.poll() == None
-                                                                                                                                      ## Beazley pp 402-403  
-                                                                                                                                          
-                                                                                                                                              def _tts_open(self):
-                                                                                                                                                      
-                                                                                                                                                              if self._tts_isopen():
-                                                                                                                                                                          return - 1
-                                                                                                                                                                                  else:
-                                                                                                                                                                                              cmdline = "festival --tts " + self.festival_args
-                                                                                                                                                                                                          self.festival_proc = Popen(cmdline, stdin=PIPE,
-                                                                                                                                                                                                                                                 stderr=PIPE, shell=True)
-                                                                                                                                                                                                                                                     def speak(self, text):
-                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                     if self._tts_isopen():
-                                                                                                                                                                                                                                                                                 self.festival_proc.communicate(input=text)
-                                                                                                                                                                                                                                                                                         else:
-                                                                                                                                                                                                                                                                                                     self._tts_open()
-                                                                                                                                                                                                                                                                                                                 self.speak(text)
-                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                         def stop(self):
-                                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                                         if self._tts_isopen():
-                                                                                                                                                                                                                                                                                                                                                     self.festival_proc.terminate()
-                                                                                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                                                                                                                             def pause(self):
-                                                                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                                             if (self._tts_isopen()) and not self.paused:
-                                                                                                                                                                                                                                                                                                                                                                                         self.festival_proc.send_signal(signal.SIGINT)
-                                                                                                                                                                                                                                                                                                                                                                                                     self.pause = True
-                                                                                                                                                                                                                                                                                                                                                                                                             elif self.paused:
-                                                                                                                                                                                                                                                                                                                                                                                                                         self.resume()
-                                                                                                                                                                                                                                                                                                                                                                                                                                 else:
-                                                                                                                                                                                                                                                                                                                                                                                                                                             return
-                                                                                                                                                                                                                                                                                                                                                                                                                                                     return
-                                                                                                                                                                                                                                                                                                                                                                                                                                                         def re
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+    def __init__(self, *args):
+         
+        self.drvparm = {"DEBUG": DEBUG, "use_pulse": 1} ## lets make pulseaudio sane until i
+        ## get configparser in place 6-28
+        self.festival_proc = None
+        if not args:
+            self.festival_args = [] ## do this so extend has no effect
+        else:
+            self.festival_args = args 
+        self.paused = False
+    
+    # Ok this will be weird but due to how this engine works we need some non-public  
+    # methods for pipe control here before we can actually implement the interface
+    
+    def _tts_isopen(self):
+        
+        return self.festival_proc != None  
+        return self.festival_proc.poll() == None 
+        ## Beazley pp 402-403  
+    
+    def _tts_open(self):
+        
+        cmdline = ["festival", "--tts"]
+        if self.drvparm["use_pulse"]:
+            cmdline.insert(0, "padsp")
+        if self._tts_isopen():
+            return - 1
+        else:
+            if self.drvparm["DEBUG"]:
+                print "DEBUG: piper opening pipe"
+        
+            self.festival_proc = Popen(cmdline, stdin=PIPE,
+                                       stderr=PIPE, shell=True)
+    def speak(self, text):
+        
+        if self._tts_isopen():
+            if DEBUG:
+                print "DEBUG: speak sending text"
+            self.festival_proc.communicate(input=text)
+        else:
+            if self.drvparm["DEBUG"]:
+                print "Debug: calling piper, and starting over"
+            self._tts_open()
+            self.speak(text)
+    
+    def stop(self):
+        
+        if self._tts_isopen():
+            if self.drvparm["DEBUG"]:
+                print "DEBUG: killing pipe"
+            self.festival_proc.terminate()
+    
+    def pause(self):
+        
+        if (self._tts_isopen()) and not self.paused:
+            self.festival_proc.send_signal(signal.SIGSTOP)
+            self.pause = True
+        elif self.paused:
+            self.resume()
+        else:
+            return
+        
+    
+    def resume(self):
+        
+        if self.paused:
+            
+            self.festival_proc(signal.SIGCONT)
+            
+     
+    def set_parm(self, key, val):
+        
+        self.drvparm[key] = val
+    
+    def get_parm(self, key):
+    
+        if key == None:
+            
+            return self.drvparm
+        
+        return self.drvparm[key]

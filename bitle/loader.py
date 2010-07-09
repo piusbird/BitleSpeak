@@ -19,14 +19,8 @@ import ConfigParser
 import os, os.path
 from sys import exit
 from bitle.config import *
+from bitle.util import *
 
-class LoadError(Exception):
-    
-    def __init__(self, value):
-        self.parameter = value
-    def __str__(self):
-        return repr(self.parameter)
-                                    
 
 cfg = ConfigParser.ConfigParser()
 
@@ -67,9 +61,5 @@ def app_init(cfg_path = None):
         raise LoadError("invalid plugin")  
     return 
 
-def xsel_read():
-    
-    fp = os.popen('xsel')
-    return fp.read() + '\n'
-    
+
     

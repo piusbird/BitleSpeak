@@ -17,10 +17,11 @@
  
 import sys
 import os.path
+from bitle.util import *
 try:  
     import pygtk  
     pygtk.require("2.0")  
-except:  
+except: 
     pass  
 try:  
     import gtk  
@@ -38,8 +39,8 @@ def main(*argv):
     try:
         spkr, cfg = loader.app_init()
         print str(spkr)
-    except:
-        print("Speech loader error")
+    except Exception as err:
+        print "error " + str(err)
         sys.exit(2)
     
     spkr = loader.app_init()
@@ -72,7 +73,7 @@ class BitleSpeak(object):
         Speaks the clipboard contents when play is pressed
         """
         if self.xsel:
-            tts = loader.xsel_read()
+            tts = xsel_read()
         else:
             brd = gtk.clipboard_get()
             tts = brd.wait_for_text()
