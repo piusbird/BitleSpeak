@@ -48,6 +48,16 @@ def load_plugin(cfg):
 		
 	spkr = SSIPClient(host, port)
 	ubu = cfg.getboolean("SSIPClient", "ubuntu")
+	voice = cfg.get("SSIPClient", "voice")
+	if spkr.set_voice(voice) and DEBUG:
+		
+		print "Voice set"
+	elif DEBUG:
+		
+		print "voice not set"
+	
+	else: 
+		pass
 	spkr.set_parm('ubuntu', ubu)
 	return spkr 
 
@@ -86,14 +96,14 @@ class SSIPClient(object):
 	## Section 4.2
 	def speak(self, text):
 		
-		smsg = text + LINE_ENDING + '.' + LINE_ENDING
+		msg = text + LINE_ENDING + '.' + LINE_ENDING
 		self.skt.send("SPEAK\r\n")
 		rmsg = self.skt.recv(BUFFSIZE)
 		if rmsg[0] != OK_STATE:
 			
 			raise SSIPError(rmsg)
 		else:
-			self.skt.send(smsg)
+			self.skt.send(msg)
 			rmsg = self.skt.recv(BUFFSIZE)
 			i = rmsg.index('\r') ## this is the point at which we 
 			## get less useful information
@@ -177,6 +187,17 @@ class SSIPClient(object):
 			return self.drvparm
 		
 		return self.drvparm[key]
+	
+	def set_voice(self, voice):
+		
+		smsg = "SET self VOICE " + voice + LINE_ENDING 
+		self.skt.send(smsg)
+		rmsg = self.skt.recv(BUFFSIZE)
+		if rmsg[0] != OK_STATE:
+			
+			return 0
+		else:
+			return -1
 	
 	def __del__(self):
 		

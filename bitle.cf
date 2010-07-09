@@ -16,7 +16,7 @@ speech_plugin = bitle.SSIPClient ; Python file that will be used as your
 
 [gui]
 
-use_xsel = True ; use a pipe to 'xsel' to get clipboard instead of 
+use_xsel = False ; use a pipe to 'xsel' to get clipboard instead of 
 ; gtk.Clipboard useful for 
 ; Start of plugin settings
 
@@ -28,3 +28,4 @@ port = -1 ; port on which the SSIP Server runs
 ; the SPEECD_PORT envinorment variable 
 ubuntu = True ; Turn on the Ubuntu bug #596703 workaround
 ; if you have issues with pause not stoping output set this to true
+voice = FEMALE1

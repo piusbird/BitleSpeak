@@ -15,6 +15,7 @@
 
 
 from subprocess import *
+import signal
 from bitle.config import *
 
 class FestivalClient(object):
@@ -24,13 +25,18 @@ class FestivalClient(object):
         self.drvparm = {"DEBUG": DEBUG, "USE_PULSE": 1} ## lets make pulseaudio sane until i
         ## get configparser in place 6-28
         self.festival_proc = None
-        self.festival_args = args 
+        if args == None:
+            self.festival_args = " "
+        else:
+            self.festival_args = args 
+        self.paused = False
+    
     # Ok this will be weird but due to how this engine works we need some non-public  
     # methods for pipe control here before we can actually implement the interface
     
     def _tts_isopen(self):
         
-        return self.festival_proc != None or self.festival_proc.poll() == None
+        return self.festival_proc != None and self.festival_proc.poll() == None
         ## Beazley pp 402-403  
     
     def _tts_open(self):
@@ -39,6 +45,31 @@ class FestivalClient(object):
             return - 1
         else:
             cmdline = "festival --tts " + self.festival_args
-            self.festival_proc = Popen(cmdline, stdin=PIPE, 
+            self.festival_proc = Popen(cmdline, stdin=PIPE,
                                        stderr=PIPE, shell=True)
+    def speak(self, text):
+        
+        if self._tts_isopen():
+            self.festival_proc.communicate(input=text)
+        else:
+            self._tts_open()
+            self.speak(text)
+    
+    def stop(self):
+        
+        if self._tts_isopen():
+            self.festival_proc.terminate()
+    
+    def pause(self):
+        
+        if (self._tts_isopen()) and not self.paused:
+            self.festival_proc.send_signal(signal.SIGINT)
+            self.pause = True
+        elif self.paused:
+            self.resume()
+        else:
+            return
+        return
+    def re
      
+
