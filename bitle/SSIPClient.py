@@ -34,10 +34,11 @@ import os
 from bitle.config import *
 import ConfigParser 
 
+_short_name = "SSIPClient"
 def load_plugin(cfg):
 	
-	host = cfg.get('SSIPClient', 'host')
-	port = cfg.getint('SSIPClient', 'port')
+	host = cfg.get(_short_name, 'host')
+	port = cfg.getint(_short_name, 'port')
 	if port < 1:
 		port = int(os.environ["SPEECHD_PORT"])	
 	
@@ -47,8 +48,8 @@ def load_plugin(cfg):
 		print "port " +  str(port)
 		
 	spkr = SSIPClient(host, port)
-	ubu = cfg.getboolean("SSIPClient", "ubuntu")
-	voice = cfg.get("SSIPClient", "voice")
+	ubu = cfg.getboolean(_short_name, "ubuntu")
+	voice = cfg.get(_short_name, "voice")
 	if spkr.set_voice(voice) and DEBUG:
 		
 		print "Voice set"
@@ -68,7 +69,7 @@ class SSIPClient(object):
 	def __init__(self, host, port):
 	
 		self.skt = socket(AF_INET, SOCK_STREAM)
-		self.drvparm = {"DEBUG": 0, "ubuntu": 1}
+		self.drvparm = {"DEBUG": 0, "ubuntu": 0}
 		if DEBUG:
 			
 			self.drvparm["DEBUG"] = 1

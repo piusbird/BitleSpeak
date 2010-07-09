@@ -1,5 +1,23 @@
 Changelog:
 
-0.1.1b1:
+0.1.1b3: "The THANK YOU captian obvious release" 
+
+	* Ui fix pause button position
+	* Ui Preference button now works [Issue #2]
+	* feature add support for xsel [Issue #3]
+	* Refactor loader.py to support xsel support
+	* SSIP Add voice selection
+	* Errors during startup handled with more user-friendilyness
+	* Refactor the sh** out of everything 
+	* festival support is done, 
+	  Its buggy as a muggy summer's night, but hey the bright side is 
+	  I get to play pipes somemore 
+	  
+
+0.1.1b2: "The Matt can't use git release"
+
+	* Skip a release because of git, only minor changes
+
+0.1.1b1: "The i forgot my pgp passpharse release"
 
 	* First beta we will see how this goes

@@ -33,4 +33,4 @@ voice = FEMALE1
 [Festival]
 
 use_pulse = True ; use pulseaudio for audio output (needs pulseaudio-utils)
-; cmdline = "--help" ; NOT YET IMPLEMENTED 
+; cmdline = "--help" ; NOT YET IMPLEMENTED %        
