@@ -23,20 +23,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="stopButton">
-            <property name="label">gtk-media-stop</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_stock">True</property>
-            <signal name="clicked" handler="on_stopButton_clicked"/>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="right_attach">2</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="pauseButton">
             <property name="label">gtk-media-pause</property>
             <property name="visible">True</property>
@@ -44,6 +30,20 @@
             <property name="receives_default">True</property>
             <property name="use_stock">True</property>
             <signal name="clicked" handler="on_pauseButton_clicked"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="stopButton">
+            <property name="label">gtk-media-stop</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_stock">True</property>
+            <signal name="clicked" handler="on_stopButton_clicked"/>
           </object>
           <packing>
             <property name="left_attach">2</property>
