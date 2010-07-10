@@ -18,7 +18,7 @@
 LINE_ENDING = '\r\n'
 BUFFSIZE = 2048 ## expecting 2^10 bytes lets double that
 OK_STATE = '2' ## see spec
-DEBUG = 0
+DEBUG = 1
 CLIENT_NAME = ":bittlespeak:shandler"
 BASE_PATH = '.'
 SITE_CONFIG_DIR = '/etc'

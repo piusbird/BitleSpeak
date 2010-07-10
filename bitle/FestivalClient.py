@@ -41,53 +41,39 @@ class FestivalClient(object):
         else:
             self.festival_args = args 
         self.paused = False
+        self.running = False
     
     # Ok this will be weird but due to how this engine works we need some non-public  
     # methods for pipe control here before we can actually implement the interface
     
     def _tts_isopen(self):
         
-        return self.festival_proc != None  
-        return self.festival_proc.poll() == None 
-        ## Beazley pp 402-403  
+        return self.running
     
-    def _tts_open(self):
-        
-        cmdline = ["festival", "--tts"]
-        if self.drvparm["use_pulse"]:
-            cmdline.insert(0, "padsp")
-        if self._tts_isopen():
-            return - 1
-        else:
-            if self.drvparm["DEBUG"]:
-                print "DEBUG: piper opening pipe"
-        
-            self.festival_proc = Popen(cmdline, stdin=PIPE,
-                                       stderr=PIPE, shell=True)
+
     def speak(self, text):
         
-        if self._tts_isopen():
-            if DEBUG:
-                print "DEBUG: speak sending text"
-            self.festival_proc.communicate(input=text)
-        else:
-            if self.drvparm["DEBUG"]:
-                print "Debug: calling piper, and starting over"
-            self._tts_open()
-            self.speak(text)
+        
+        p1 = Popen(['echo', text], stdout=PIPE)
+        fest_cmd = ['festival', '--tts']
+        if self.drvparm["use_pulse"]:
+            fest_cmd.insert(0, 'padsp')
+        self.festival_proc = Popen(fest_cmd, stdin=p1.stdout)
+        self.running = True
     
     def stop(self):
         
         if self._tts_isopen():
             if self.drvparm["DEBUG"]:
                 print "DEBUG: killing pipe"
-            self.festival_proc.terminate()
+            self.festival_proc.kill()
+            self.running = False
     
     def pause(self):
         
         if (self._tts_isopen()) and not self.paused:
             self.festival_proc.send_signal(signal.SIGSTOP)
-            self.pause = True
+            self.paused = True
         elif self.paused:
             self.resume()
         else:
