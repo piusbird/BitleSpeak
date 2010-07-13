@@ -59,6 +59,7 @@ class BitleSpeak(object):
         self.builder.add_from_file(ui_file_path)
         dbg = self.builder.connect_signals(self)
         self.win = self.builder.get_object("mainWindow")
+        self.win.stick()
         self.win.show()
         if DEBUG:
             print "Unbound Events " + str(dbg)
