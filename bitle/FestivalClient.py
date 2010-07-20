@@ -52,7 +52,7 @@ class FestivalClient(object):
     def speak(self, text):
         
         
-        p1 = Popen(['echo', text], stdout=PIPE)
+        p1 = Popen(['echo', str(text)], stdout=PIPE)
         fest_cmd = ['festival', '--tts']
         if self.drvparm["use_pulse"]:
             fest_cmd.insert(0, 'padsp')

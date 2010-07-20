@@ -90,7 +90,7 @@ class SSIPClient(object):
 	## Section 4.2
 	def speak(self, text):
 		
-		msg = text + LINE_ENDING + '.' + LINE_ENDING
+		msg = str(text) + LINE_ENDING + '.' + LINE_ENDING
 		self.skt.send("SPEAK\r\n")
 		rmsg = self.skt.recv(BUFFSIZE)
 		if rmsg[0] != OK_STATE:

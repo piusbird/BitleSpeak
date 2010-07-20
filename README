@@ -2,6 +2,7 @@ Welcome to BitleSpeak
 ---------------------
 
 First beta July 1, 2010
+Fifth beta July 20, 2010
 
   BitleSpeak is a minimalist text to speech toolbar for UNIX like operating 
 systems. BitleSpeak has all the basic features of a tts front end, with more
@@ -26,8 +27,9 @@ Supported Speech Backends
 ------------------------
 
 * Speech Dispatcher/OpenTTS: plugin (bitle.SSIPClient)
-* festival: WARNING THIS IS REALLY UNSTABLE: (plugin bitle.FestivalClient)
-
+* festival: (plugin bitle.FestivalClient)
+   + Warning this has issues under pulseaudio
+* espeak: plugin (bitle.EspeakPipe)
 
 How to use
 ----------
@@ -47,9 +49,6 @@ random features won't work as they were intended to. If you notice
 and are bothered by these things you should e-mail the author aka me
 at the e-mail address in Contact information below. Here are some bugs 
 I'm currently working on
-
-* The preferences button doesn't work 
-* The loader spits up FestivalClient 
 
 Contact information
 -------------------

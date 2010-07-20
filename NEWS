@@ -1,5 +1,24 @@
 Changelog:
 
+0.1.1b5: "The Hard drive failure is not always a bad thing release"
+
+	* Fix bug discovered in path testing that had the UI failing to stop the
+	  speaker on program exit.
+	
+	* Fix bunch of crap discovered by pychecker
+	* Fix Always ensure that we are passing a string to the speak method
+	  if that fails have all drivers cast the text param to a string
+    * UI NEW: Make it so the bar is always visable 
+      this depends on your window manager but works in
+      + metacity
+      + enlightenment
+      + compiz (maybe)
+   * Driver NEW: Add Espeak driver 
+      This is still flakey as i wrote it to cope during my hard drive failure 
+0.1.1b4: "The Matt can't use tar(1) release"
+	
+	* Correct ommision of util.py from b3 tarball
+	
 0.1.1b3: "The THANK YOU captian obvious release" 
 
 	* Ui fix pause button position
