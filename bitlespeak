@@ -142,12 +142,17 @@ class BitleSpeak(object):
     		
     		self.win.set_icon_from_file(chkpath)
     		return
+    	
     	chkpath = '/usr/share/pixmaps' + ICON_FILE_NAME
     	if os.path.isfile(chkpath):
-			self.win.set_icon_from_file(chkpath)
-    	    return
+    	
+    		self.win.set_icon_from_file(chkpath)
+    		return
+    		
+    		
+    
     	                        
-		return
+		
 
 if __name__ == '__main__':
     
