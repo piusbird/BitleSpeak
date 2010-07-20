@@ -19,10 +19,10 @@ import signal
 from bitle.config import *
 from bitle.util import *
 _short_name = "Espeak"
+
 def load_plugin(cfg):
     
-    if not DEBUG:
-        raise BitleError("This is an unstable plugin, use a dev build")
+  
     
     pa = cfg.getboolean(_short_name, "use_pulse")
     dbg = DEBUG

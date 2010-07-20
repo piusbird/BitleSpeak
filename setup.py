@@ -30,7 +30,7 @@ setup(name='BitleSpeak',
       packages = ['bitle'],
       scripts = ['bitlespeak'],
       data_files = [('data', ['data/Bitletoolbar.ui']),
-                     ('docs', ['docs/bitle.cf.dist', 'docs/bitle.cf.dev'])
+                     ('docs', ['docs/bitle.dist.cf', 'docs/bitle..dev.cf'])
                    ]
 )
 
