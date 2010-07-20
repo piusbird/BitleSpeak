@@ -26,12 +26,18 @@ setup(name='BitleSpeak',
       description = APP_DESC,
       author = 'Matt Arnold',
       author_email = 'mattarnold5@gmail.com',
+      license = 'GPLv3'
       url = 'http://marnold.info/code/bitlespeak',
       packages = ['bitle'],
       scripts = ['bitlespeak'],
-      data_files = [('data', ['data/Bitletoolbar.ui']),
-                     ('docs', ['docs/bitle.dist.cf', 'docs/bitle..dev.cf'])
+      data_files = [('share/bitlespeak', ['data/Bitletoolbar.ui', 
+      				'data/bitlespeak_icon.svg']),
+                     ('share/doc/bitlespeak', ['docs/bitle.dist.cf', 
+                     'docs/bitle.dev.cf', 
+                     'docs/plugin-interface.txt'])
                    ]
+     
+	    
 )
 
       

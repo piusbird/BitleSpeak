@@ -1,8 +1,17 @@
 Changelog:
 
-0.1.2:
+0.1.2: "The 'stable' release" 7/20/10
 
 	* 7/20 Stable Release branch started
+	* Add distutils script 
+	* Fix hard coded paths more distribution friendly
+	* Add icon (a grasshopper)
+	* Take out debug statements that i don't intend to keep around
+	* Set the DEBUG flag to False, thus hiding the debug statements i want
+	* Espeak is now stable
+	* Finish docs
+	* Whatever the heck else i did, and forgot to mention see git log
+	
 	
 0.1.1b5: "The Hard drive failure is not always a bad thing release"
 
@@ -19,6 +28,7 @@ Changelog:
       + compiz (maybe)
    * Driver NEW: Add Espeak driver 
       This is still flakey as i wrote it to cope during my hard drive failure 
+
 0.1.1b4: "The Matt can't use tar(1) release"
 	
 	* Correct ommision of util.py from b3 tarball

@@ -62,6 +62,7 @@ class BitleSpeak(object):
         self.builder.add_from_file(ui_file_path)
         dbg = self.builder.connect_signals(self)
         self.win = self.builder.get_object("mainWindow")
+        self._icon()
         self.win.stick()
         self.win.show()
         if DEBUG:
@@ -126,6 +127,22 @@ class BitleSpeak(object):
         sys.exit(0)
     
     on_quitButton_clicked = on_mainWindow_destroy ## make gtk happy
+    
+    ## now a hack to get the icon in place
+    def _icon(self):
+    
+    	chkpath = os.path.abspath(DATA_DIR + ICON_FILE_PATH)
+    	if os.path.isfile(chkpath):
+    		
+    		self.win.set_icon_from_file(chkpath)
+    		return
+    	
+    	chkpath = os.path.abspath(SITE_DATA_DIR + ICON_FILE_PATH)
+    	if os.path.isfile(chkpath):
+    		
+    		self.win.set_icon_from_file(chkpath)
+    		return
+    	return
 
 if __name__ == '__main__':
     

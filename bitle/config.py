@@ -26,8 +26,9 @@ CLIENT_NAME = ":bittlespeak:shandler"
 DEBUG = 0
 ## needed by plugin loader
 BASE_PATH = '.'
+DATA_DIR = BASE_PATH + '/data'
 SITE_CONFIG_DIR = '/etc'
-SITE_DATA_DIR = sys.prefix + '/data'
+SITE_DATA_DIR = sys.prefix + '/share/bitlespeak'
 
 ## GTK author metadata
 
@@ -39,7 +40,7 @@ APP_DESC = 'A little text to speech toolbar'
 
 ## UI stuff
 PREF_MSG = "Plese edit bitle.cf for application settings"
-
+ICON_FILE_PATH = '/bitlespeak_icon.svg'
 ## Private settings for setuptools
 
 _ST_EMAIL = "mattarnold5@gmail.com"

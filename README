@@ -1,8 +1,7 @@
 Welcome to BitleSpeak 
 ---------------------
 
-First beta July 1, 2010
-Fifth beta July 20, 2010
+Version 0.1.2 July 20, 2010
 
   BitleSpeak is a minimalist text to speech toolbar for UNIX like operating 
 systems. BitleSpeak has all the basic features of a tts front end, with more
@@ -34,26 +33,28 @@ Supported Speech Backends
 How to use
 ----------
 
-Just run the setup.py install copy the stock config file to ~/.bitle.cf
-read said file and edit to your heart's content. With development builds 
-just edit the stock config file, and ./bitlespeak.py. 
-Also if you have dev build report bugs, or better yet fix bugs yourself.
+To use without installing just untar the distribution package
+copy one of the config files from docs/ to $HOME/.bitle.cf and edit to taste
 
+To install install and use run setup.py install, and do the same as above
+The rest of the docs and example config files will be in 
+sys.prefix/share/doc/bitlespeak
 
-THIS IS A DEVELOPMENT BUILD
----------------------------
+Known bugs:
+----------
 
-In fact it's the first ever development build, you are lucky. Not only do you
-get to see seemingly random debug messages spew into the terminal, but 
-random features won't work as they were intended to. If you notice 
-and are bothered by these things you should e-mail the author aka me
-at the e-mail address in Contact information below. Here are some bugs 
-I'm currently working on
+pulseaudio support is very buggy.
+
+ZOMG i found a bug
+-----------------
+
+Report it to the issue tracker @ http://github.com/marnold/BitleSpeak
+if you prefer e-mail see below
 
 Contact information
 -------------------
 
-Matt Arnold <matt+software@thegnuguru.org>
+Matt Arnold <mattarnold5@gmail.com>
 
 I also have a Forum  for discussion of this package, and upcoming 
 packages. Find that at http://marnold.info/forum
