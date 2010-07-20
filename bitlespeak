@@ -147,7 +147,7 @@ class BitleSpeak(object):
 			self.win.set_icon_from_file(chkpath)
     	    return
     	                        
-    	return
+		return
 
 if __name__ == '__main__':
     
