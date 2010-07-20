@@ -18,11 +18,9 @@ from subprocess import Popen, PIPE
 import signal
 from bitle.config import *
 from bitle.util import *
+
 def load_plugin(cfg):
-    
-    if not DEBUG:
-        raise BitleError("This is an unstable plugin, use a dev build")
-    
+      
     pa = cfg.getboolean("Festival", "use_pulse")
     dbg = DEBUG
     spkr = FestivalClient()
