@@ -1,0 +1,37 @@
+Description: Upstream changes introduced in version 0.1.2a-2
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ bitlespeak (0.1.2a-2) unstable; urgency=low
+ .
+   * Correct mistake in release tarball (merged)
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Matt Arnold <mattarnold5@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- bitlespeak-0.1.2a.orig/NEWS
++++ bitlespeak-0.1.2a/NEWS
+@@ -1,8 +1,5 @@
+ Changelog:
+-0.1.2a "The Get it ready for Debian Release":
+-  
+-  * change icon to xpm format
+-  * update _icon to look for it /usr/share/pixmaps
++
+ 0.1.2: "The 'stable' release" 7/20/10
+ 
+ 	* 7/20 Stable Release branch started

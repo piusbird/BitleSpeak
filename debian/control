@@ -1,0 +1,19 @@
+Source: bitlespeak
+Section: gnome
+Priority: extra
+Maintainer: Matt Arnold <mattarnold5@gmail.com>
+Build-Depends: debhelper (>= 7), python-support, python (>=2.6)
+Standards-Version: 3.9.0
+Homepage: http://marnold.info/code/bitlespeak
+Vcs-Git: git://github.com/marnold/BitleSpeak.git
+Vcs-Browser: http://github.com/marnold/BitleSpeak
+
+Package: bitlespeak
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-gtk2, speech-dispatcher | espeak
+Recomends: xsel
+Sugguests: festival 
+Description: A tiny text to speech toolbar
+ BitleSpeak is a minimalist text to speech toolbar for UNIX like operating 
+ systems. BitleSpeak has all the basic features of a tts front end, and is
+ modular so it may support several different speech synthesizers.

@@ -1,0 +1,39 @@
+Description: Upstream changes introduced in version 0.1.2a-1
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ bitlespeak (0.1.2a-1) unstable; urgency=low
+ .
+   * Initial release (Closes: #589709)
+   * Add desktop file (will be upstreamed in next rel)
+   * Add manpage (will merge next rel)
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Matt Arnold <mattarnold5@gmail.com>
+Bug-Debian: http://bugs.debian.org/589709
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- /dev/null
++++ bitlespeak-0.1.2a/bitlespeak.desktop
+@@ -0,0 +1,8 @@
++[Desktop Entry]
++Type=Application
++Name=BitleSpeak
++GenericName=Text to speech frontend
++Exec=bitlespeak
++Icon=bitlespeak
++Terminal=false
++

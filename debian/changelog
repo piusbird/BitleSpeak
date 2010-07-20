@@ -1,0 +1,13 @@
+bitlespeak (0.1.2a-2) unstable; urgency=low
+
+  * Correct mistake in release tarball (merged)
+
+ -- Matt Arnold <mattarnold5@gmail.com>  Tue, 20 Jul 2010 16:46:59 -0400
+
+bitlespeak (0.1.2a-1) unstable; urgency=low
+
+  * Initial release (Closes: #589709)  
+  * Add desktop file (will be upstreamed in next rel) 
+  * Add manpage (will merge next rel)
+
+ -- Matt Arnold <mattarnold5@gmail.com>  Tue, 20 Jul 2010 16:25:45 -0400
