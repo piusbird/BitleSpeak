@@ -1,4 +1,4 @@
-## File: FestivalClient.py: BitleSpeak Client Driver for festival
+## File: EspeakControler.py: BitleSpeak Client Driver for espeak
 ## Author: Matt Arnold <matt@thegnuguru.org> 
 ## This file is part of BitleSpeak
 
@@ -18,24 +18,25 @@ from subprocess import Popen, PIPE
 import signal
 from bitle.config import *
 from bitle.util import *
+_short_name = "Espeak"
 def load_plugin(cfg):
     
     if not DEBUG:
         raise BitleError("This is an unstable plugin, use a dev build")
     
-    pa = cfg.getboolean("Festival", "use_pulse")
+    pa = cfg.getboolean(_short_name, "use_pulse")
     dbg = DEBUG
-    spkr = FestivalClient()
+    spkr = EspeakPipe()
     spkr.set_parm("use_pulse", pa)
     spkr.set_parm("DEBUG", dbg)
     return spkr
-class FestivalClient(object):
+class EspeakPipe(object):
      
     def __init__(self, *args):
          
         self.drvparm = {"DEBUG": DEBUG, "use_pulse": 1} ## lets make pulseaudio sane until i
         ## get configparser in place 6-28
-        self.festival_proc = None
+        self.festival_proc = None ## rename later 7/20
         if not args:
             self.festival_args = [] ## do this so extend has no effect
         else:
@@ -53,9 +54,9 @@ class FestivalClient(object):
 
     def speak(self, text):
         
-        
-        p1 = Popen(['echo', text], stdout=PIPE)
-        fest_cmd = ['festival', '--tts']
+        txt = str(text) ## execv is spiting up we want to know why
+        p1 = Popen(['echo', txt], stdout=PIPE)
+        fest_cmd = ['espeak']
         if self.drvparm["use_pulse"]:
             fest_cmd.insert(0, 'padsp')
         self.festival_proc = Popen(fest_cmd, stdin=p1.stdout)

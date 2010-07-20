@@ -32,7 +32,7 @@ except:
 from bitle import loader
 from bitle.config import *
 
-spkr = None
+
 
 def main(*argv):
     
@@ -67,7 +67,7 @@ class BitleSpeak(object):
         ## so this is used by play/stop widgets to determine behavior
         tspk, tcfg = spk ## tuple packing is apperently local scope only 
         self.xsel = xsel 
-        self.spkr = tspk
+        self.lspkr = tspk
     
     def on_playButton_clicked(self, widget, data=None):
         """
@@ -77,23 +77,23 @@ class BitleSpeak(object):
             tts = xsel_read()
         else:
             brd = gtk.clipboard_get()
-            tts = brd.wait_for_text()
-        self.spkr.speak(tts)
+            tts = str(brd.wait_for_text())
+        self.lspkr.speak(tts)
         self.running = True
         return
     
     def on_pauseButton_clicked(self, widget, data=None):
         
         if self.running:
-            self.spkr.pause()
+            self.lspkr.pause()
         else:
-            self.spkr.resume()
+            self.lspkr.resume()
         return
     
     def on_stopButton_clicked(self, widget, data=None):
         
         if self.running:
-            self.spkr.stop()
+            self.lspkr.stop()
             self.running = False
         else:
             return
@@ -119,7 +119,7 @@ class BitleSpeak(object):
 
     
     def on_mainWindow_destroy(self, widget, data=None):
-        
+        self.lspkr.stop()
         sys.exit(0)
     
     on_quitButton_clicked = on_mainWindow_destroy ## make gtk happy
