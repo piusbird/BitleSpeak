@@ -33,14 +33,14 @@ SITE_DATA_DIR = sys.prefix + '/share/bitlespeak'
 ## GTK author metadata
 
 APP_NAME = 'BitleSpeak'
-APP_VER = '0.1.2'
+APP_VER = '0.1.2a'
 APP_AUTHORS = ["Matt Arnold"]
 APP_COPY ='GPLv3'
 APP_DESC = 'A little text to speech toolbar'
 
 ## UI stuff
 PREF_MSG = "Plese edit bitle.cf for application settings"
-ICON_FILE_PATH = '/bitlespeak_icon.svg'
+ICON_FILE_PATH = '/bitlespeak.xpm'
 ## Private settings for setuptools
 
 _ST_EMAIL = "mattarnold5@gmail.com"
