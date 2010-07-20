@@ -53,9 +53,12 @@ class BitleSpeak(object):
     def __init__(self, spk, xsel = False):
         
         ## see PyGtk Docs and data/ in source tree
+        self.builder = gtk.Builder()
         ui_file_path = os.path.abspath(BASE_PATH 
                                        + '/data/Bitletoolbar.ui')
-        self.builder = gtk.Builder()
+        if not os.path.isfile(ui_file_path):
+        	ui_file_path = os.path.abspath(SITE_DATA_DIR + 
+        									'/Bitletoolbar.ui')
         self.builder.add_from_file(ui_file_path)
         dbg = self.builder.connect_signals(self)
         self.win = self.builder.get_object("mainWindow")

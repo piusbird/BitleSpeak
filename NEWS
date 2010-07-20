@@ -1,5 +1,9 @@
 Changelog:
 
+0.1.2:
+
+	* 7/20 Stable Release branch started
+	
 0.1.1b5: "The Hard drive failure is not always a bad thing release"
 
 	* Fix bug discovered in path testing that had the UI failing to stop the

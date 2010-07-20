@@ -53,7 +53,6 @@ def app_init(cfg_path = None):
     ## yet more security if we don't have a load_plugin this will fail
     ## on a pile of uncaught exceptions. i still need to figure out some 
     ## way of plugin signing 
-    print "execing " + strexec
     exec(strexec)
     if load_plugin:
         spkr = load_plugin(cfg)

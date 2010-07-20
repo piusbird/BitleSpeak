@@ -1,0 +1,97 @@
+The BitleSpeak back-end plugin interface 
+Author: Matt Arnold 
+This document may be used under the same terms as BitleSpeak itself
+currently GPLv3
+=========================
+
+Abstract:
+
+This document defines an interface specification for a BitleSpeak speech 
+back end plugin. BitleSpeak graphical is a text to speech toolbar 
+for unix like operating systems.
+
+Status of this memo:
+
+ This specification is currently in draft form which means it may change 
+quite rapidly. While backward comptibility is a priority it is not assured.
+
+Terms used:
+
+Speaker- The object that the BitleSpeak frontend uses to communicate with 
+         the back-end.
+Plugin- A BitleSpeak back-end plugin 
+ This document will also use the requirement words MUST, SHOULD, and MAY
+ these shall have the usual meanings as defined by IETF [RFC 2119]
+tts - Text to Speech
+ 
+ 1. An overview:
+ 
+ BitleSpeak is a gtk application which assists users with reading 
+impediments by reading aloud whatever text is currently highlighted in the
+active window, alternitvly it will read whatever text is in the user's gtk
+clipboard. BitleSpeak is not the same thing as a screen reader which turns 
+all output be it graphical, and text into speech. Screen Readers are 
+designed to fit the needs of a users with total, or near total visual 
+impairments, and can be quite cumbersome for a sited user with reading 
+dificulties. BitleSpeak solves this problem by implementing only those 
+minimal text to speech features typically used by people with impairments.
+ What makes bitle really unique is the fact that it can support multiple tts
+backends by means of a speech plugin, also known in this document as a driver.
+
+2. Reference implementation
+
+ The driver implementation used to construct this document is SSIPClient.
+ Which is located in bitle/SSIPClient.py 
+
+3. The Interface
+
+3.1 Symbols
+
+_short_name:
+ All drivers SHOULD define the symbol _short_name, which is the name that
+ is used as the section name for your plugin in the Bitlespeak 
+ configuration file. The configuration file has the format which is output 
+ by Python's ConfigParser object
+
+3.2 Functions:
+
+load_plugin(stdlib.ConfigParser):
+
+ All drivers MUST this function, which MUST accept a ConfigParser object. 
+ the ConfigParser may be used to set internal parmeters of the Speaker object. 
+ This function returns a fully constructed Speaker object, or throws a BitleError
+ (defined in bitle.util) on failure.
+
+3.3 Speaker object:
+
+ A Speaker object has the following methods
+ 
+  def speak(self, text):
+  
+    This method outputs audio representing the string in the text parameter, 
+    or throws a BitleError on failure.
+  
+  def stop(self):
+  
+    This method stops all audio output from the driver within ten seconds, and
+    discards any text waiting to be output. 
+  
+  def pause(self):
+  
+    This method stops all audio output from the driver within ten seconds, and hold
+    any unoutput text until the resume method is called. Calling the speak method while 
+    the speaker is paused must have the same effect as if stop were called.
+  
+  def resume(self):
+  
+   See pause above
+  
+  def get_parm(self, key):
+  
+   Return an interal driver parameter. key must be one of the symbols defined in your
+   configuration file section. If key is None return a dictionary holding the current 
+   state configuration values.
+  
+  def set_parm(self, key, value):
+  
+   Set configuration parmeter denoted by key to value. See above for further details   

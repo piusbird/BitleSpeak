@@ -1,0 +1,4 @@
+include NEWS
+include COPYING
+recursive-include data *
+recursive-include docs *

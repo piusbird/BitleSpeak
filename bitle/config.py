@@ -13,24 +13,34 @@
 ## You should have received a copy of the GNU General Public License
 ## along with BitleSpeak.  If not, see <http://www.gnu.org/licenses/>.
 
+import sys
 
-
+## These settings are for the ssip driver
+## will be moved as soon as i figure out where to put em
+## so as not to break anything
 LINE_ENDING = '\r\n'
 BUFFSIZE = 2048 ## expecting 2^10 bytes lets double that
-OK_STATE = '2' ## see spec
-DEBUG = 1
+OK_STATE = '2' ## see ssip docs]
 CLIENT_NAME = ":bittlespeak:shandler"
+
+DEBUG = 1
+## needed by plugin loader
 BASE_PATH = '.'
 SITE_CONFIG_DIR = '/etc'
-
+SITE_DATA_DIR = sys.prefix + '/data'
 
 ## GTK author metadata
 
 APP_NAME = 'BitleSpeak'
-APP_VER = '0.1.1b2'
+APP_VER = '0.1.2'
 APP_AUTHORS = ["Matt Arnold"]
-APP_COPY ='GPL'
+APP_COPY ='GPLv3'
 APP_DESC = 'A little text to speech toolbar'
 
 ## UI stuff
 PREF_MSG = "Plese edit bitle.cf for application settings"
+
+## Private settings for setuptools
+
+_ST_EMAIL = "mattarnold5@gmail.com"
+_ST_AUTHOR = "Matt Arnold"
