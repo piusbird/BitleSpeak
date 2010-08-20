@@ -30,6 +30,7 @@ def load_plugin(cfg):
     spkr.set_parm("use_pulse", pa)
     spkr.set_parm("DEBUG", dbg)
     return spkr
+
 class EspeakPipe(object):
      
     def __init__(self, *args):
@@ -54,6 +55,9 @@ class EspeakPipe(object):
 
     def speak(self, text):
         
+        if self.running:  ## We don't permit multijobs in this driver
+            print "fishy"
+            return
         txt = str(text) ## execv is spiting up we want to know why
         p1 = Popen(['echo', txt], stdout=PIPE)
         fest_cmd = ['espeak']
@@ -70,11 +74,13 @@ class EspeakPipe(object):
             self.festival_proc.kill()
             self.running = False
     
+    ## 8/8/10 Fix unreported issue with pause method
     def pause(self):
         
-        if (self._tts_isopen()) and not self.paused:
+        if self.running: 
             self.festival_proc.send_signal(signal.SIGSTOP)
             self.paused = True
+            self.running = False
         elif self.paused:
             self.resume()
         else:
@@ -85,8 +91,9 @@ class EspeakPipe(object):
         
         if self.paused:
             
-            self.festival_proc(signal.SIGCONT)
-            
+            self.festival_proc.send_signal(signal.SIGCONT)
+            self.running = True
+
      
     def set_parm(self, key, val):
         

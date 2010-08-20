@@ -32,16 +32,22 @@
 from socket import *
 import os
 from bitle.config import *
-import ConfigParser 
+
+MAGIC_HOST = "UNIX" ## argument that passes to the consturctor to enable bsd
+## socket support AF_UNIX
 
 _short_name = "SSIPClient"
+
 def load_plugin(cfg):
 	
 	host = cfg.get(_short_name, 'host')
-	port = cfg.getint(_short_name, 'port')
-	if port < 1:
+	port = cfg.get(_short_name, 'port')
+	if port.isdigit() and port == '-1':
 		port = int(os.environ["SPEECHD_PORT"])	
 	
+        if host != MAGIC_HOST:
+            port = int(port)
+
 	if DEBUG:
 		print "SSIPClient loading"
 		print "server: " + host
@@ -67,16 +73,28 @@ def load_plugin(cfg):
 class SSIPClient(object):
 
 	def __init__(self, host, port):
-	
-		self.skt = socket(AF_INET, SOCK_STREAM)
+		
+                addr_fam = AF_INET
+                
+                if host == MAGIC_HOST:
+                    
+                    addr_fam = AF_UNIX
+
+                self.skt = socket(addr_fam, SOCK_STREAM) 
 		self.drvparm = {"DEBUG": 0, "ubuntu": 0}
 		if DEBUG:
 			
 			self.drvparm["DEBUG"] = 1
 			
 		self.currjob = -1
-		self.skt.connect((gethostbyname(host), port)) 
-		if self.drvparm["DEBUG"]:
+		if host == MAGIC_HOST:
+                    
+                    self.skt.connect(port)
+                else:
+                    
+                    self.skt.connect((host, port))
+		
+                if self.drvparm["DEBUG"]:
 			print "DEBUG: shandler connected doing handshake"
 		smsg = "SET self CLIENT_NAME " + str(os.getlogin()) 
 		smsg += CLIENT_NAME + LINE_ENDING

@@ -69,9 +69,10 @@ class FestivalClient(object):
     
     def pause(self):
         
-        if (self._tts_isopen()) and not self.paused:
+        if self.running:
             self.festival_proc.send_signal(signal.SIGSTOP)
             self.paused = True
+            self.running = False
         elif self.paused:
             self.resume()
         else:
@@ -83,7 +84,7 @@ class FestivalClient(object):
         if self.paused:
             
             self.festival_proc(signal.SIGCONT)
-            
+            self.running = False
      
     def set_parm(self, key, val):
         
