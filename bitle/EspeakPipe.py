@@ -48,14 +48,12 @@ class EspeakPipe(object):
     # Ok this will be weird but due to how this engine works we need some non-public  
     # methods for pipe control here before we can actually implement the interface
     
-    def _tts_isopen(self):
+    def _running(self):
         
         return self.running
-    
-
     def speak(self, text):
         
-        if self.running:  ## We don't permit multijobs in this driver
+        if self._running():  ## We don't permit multijobs in this driver
             print "fishy"
             return
         txt = str(text) ## execv is spiting up we want to know why
@@ -68,7 +66,7 @@ class EspeakPipe(object):
     
     def stop(self):
         
-        if self._tts_isopen():
+        if self._running():
             if self.drvparm["DEBUG"]:
                 print "DEBUG: killing pipe"
             self.festival_proc.kill()
@@ -77,7 +75,7 @@ class EspeakPipe(object):
     ## 8/8/10 Fix unreported issue with pause method
     def pause(self):
         
-        if self.running: 
+        if self._running(): 
             self.festival_proc.send_signal(signal.SIGSTOP)
             self.paused = True
             self.running = False
@@ -86,7 +84,7 @@ class EspeakPipe(object):
         else:
             return
         
-    
+    ## need to leave this in for pause to work
     def resume(self):
         
         if self.paused:

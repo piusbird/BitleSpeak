@@ -129,7 +129,7 @@ class SSIPClient(object):
 			self.stop()
 			return
 		
-		smsg = "PAUSE " + str(self.currjob) + LINE_ENDING
+		smsg = "PAUSE self" + LINE_ENDING
 		self.skt.send(smsg)
 		rmsg = self.skt.recv(BUFFSIZE)
 		if self.drvparm["DEBUG"]:
