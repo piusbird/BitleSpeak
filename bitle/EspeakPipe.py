@@ -53,9 +53,9 @@ class EspeakPipe(object):
         return self.running
     def speak(self, text):
         
-        if self._running():  ## We don't permit multijobs in this driver
-            print "fishy"
-            return
+       # if self._running():  ## We don't permit multijobs in this driver
+        #    print "fishy"
+         #   return
         txt = str(text) ## execv is spiting up we want to know why
         p1 = Popen(['echo', txt], stdout=PIPE)
         fest_cmd = ['espeak']
